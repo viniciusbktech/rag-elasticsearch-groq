@@ -63,9 +63,19 @@ Execute a aplicação com:
 python app.py
 ```
 
-A interface web será iniciada localmente. Você pode:
+A interface web será iniciada localmente:
+
+![Chatbot em funcionamento](imagem1.png)
+
+Você pode:
 1. Clicar em "Inicializar Pipeline" para conectar ao Elasticsearch e preparar o sistema
+
+![Inicializando o pipeline](imagem2.png)
+
 2. Digitar sua pergunta e clicar em "Buscar"
+
+![Exemplo de busca](imagem3.png)
+
 3. Opcionalmente, ativar/desativar as opções:
    - "Mostrar detalhes da pesquisa" para ver informações sobre os documentos recuperados
    - "Usar LLM para preparar consulta" para alternar entre consulta personalizada pela LLM ou busca semântica direta
