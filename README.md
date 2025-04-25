@@ -28,6 +28,7 @@ O sistema funciona da seguinte forma:
 
 - Python 3.8+
 - Acesso a um cluster Elasticsearch com índice que contém campo semantic_text vetorizado (8.15+)
+- Chave de API do Groq
 
 ### Sobre o índice utilizado
 
@@ -38,8 +39,6 @@ A estrutura do índice foi adaptada para suportar buscas híbridas (texto + veto
 Além disso, foi criado um campo vetorial chamado `Content_vec` no índice, a partir do campo de texto `Content`. Esse campo foi vetorizado utilizando o modelo built-in da Elastic chamado `.multilingual-e5-small-elasticsearch`, permitindo buscas semânticas avançadas diretamente no Elasticsearch. Dessa forma, perguntas em linguagem natural podem ser comparadas semanticamente ao conteúdo das notícias, aumentando a precisão das respostas.
 
 Um dos grandes diferenciais do tipo `semantic_text` do Elasticsearch é sua capacidade de realizar automaticamente o "chunking" do texto — ou seja, dividir textos longos em partes menores, respeitando o limite máximo de tokens do modelo de embedding utilizado. Antes do advento do campo `semantic_text`, era necessário implementar esse processo de chunking externamente, fragmentando manualmente os textos para garantir que cada pedaço estivesse dentro do limite aceito pelo modelo de vetorização. Agora, ao utilizar o `semantic_text`, o Elasticsearch faz essa divisão de forma nativa e transparente, simplificando o pipeline de ingestão e garantindo melhor aproveitamento do modelo, além de facilitar a indexação de documentos extensos.
-
-- Chave de API do Groq
 
 ## Configuração
 
