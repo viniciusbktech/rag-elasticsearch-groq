@@ -76,27 +76,27 @@ Para este exemplo, foi utilizada uma base de dados de notícias da Folha de São
 
 A interface web será iniciada localmente:
 
-![Chatbot em funcionamento](/rag_elastic_groq/imagens/imagem1.png)
+![Chatbot em funcionamento](imagens/imagem1.png)
 
 Para testar:
 1. Clicar em "Inicializar Pipeline" para conectar ao Elasticsearch e preparar o sistema
 
-![Inicializando o pipeline](/rag_elastic_groq/imagens/imagem2.png)
+![Inicializando o pipeline](imagens/imagem2.png)
 
 2. Digitar sua pergunta e clicar em "Buscar"
 
-![Exemplo de busca](/rag_elastic_groq/imagens/imagem3.png)
+![Exemplo de busca](imagens/imagem3.png)
 
 3. Opcionalmente, ativar/desativar a opção:
    - "Usar LLM para preparar consulta" para alternar entre consulta personalizada pela LLM ou busca semântica direta (desabilitar a opção fará com que todas as palavras contidas na busca sejam pesquisadas no índice, com a remoção de stopwords, apenas)
 
 4. A consulta também foi validada no Kibana para analisar o output da consulta
 
-![Consulta no Kibana](/rag_elastic_groq/imagens/imagem4.png)
+![Consulta no Kibana](imagens/imagem4.png)
 
 5. Nos logs, é possível ver a mesma consulta sendo criada pela LLM e enviada para o Elasticsearch
 
-![Logs](/rag_elastic_groq/imagens/imagem5.png)
+![Logs](imagens/imagem5.png)
 
 ## Detalhes sobre a consulta RRF (Reciprocal Rank Fusion)
 
