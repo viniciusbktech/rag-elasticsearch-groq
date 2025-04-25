@@ -11,7 +11,6 @@ rag_elastic_groq-venv/
 
 # dotenv environment variables
 .env
-.env.*
 
 # OS generated files
 .DS_Store
