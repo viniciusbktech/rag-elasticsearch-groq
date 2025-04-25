@@ -33,17 +33,16 @@ class RAGPipeline:
         
         logger.info("Pipeline RAG inicializada com sucesso")
     
-    def process_query(self, user_query, show_details=False, use_llm_query=True):
+    def process_query(self, user_query, use_llm_query=True):
         """
         Processa a consulta do usuário através da pipeline RAG completa
         
         Args:
             user_query: Pergunta ou consulta do usuário
-            show_details: Se True, retorna detalhes da pesquisa além da resposta final
             use_llm_query: Se True, usa a LLM para preparar a consulta Elasticsearch. Se False, usa diretamente a busca semântica do ES.
             
         Returns:
-            Resposta final ou resposta com detalhes se show_details=True
+            Resposta final
         """
         try:
             start_time = time.time()
@@ -73,25 +72,7 @@ class RAGPipeline:
             total_time = time.time() - start_time
             logger.info(f"Processamento completo em {total_time:.2f} segundos")
             
-            # 3. Retornar detalhes ou apenas a resposta
-            if show_details:
-                details = {
-                    "answer": answer,
-                    "search_time": f"{search_time:.2f} segundos",
-                    "total_time": f"{total_time:.2f} segundos",
-                    "documents_count": len(documents),
-                    "documents": [
-                        {
-                            "id": doc["id"],
-                            "score": doc["score"],
-                            "source_preview": str(doc["source"])[:200] + "..." if len(str(doc["source"])) > 200 else str(doc["source"])
-                        } for doc in documents[:3]  # Mostra apenas os 3 primeiros documentos
-                    ]
-                }
-                return json.dumps(details, indent=2, ensure_ascii=False)
-            else:
-                return answer
-                
+            return answer
         except Exception as e:
             logger.error(f"Erro ao processar consulta: {str(e)}")
             return f"Ocorreu um erro ao processar sua consulta: {str(e)}"
@@ -107,7 +88,7 @@ def initialize_pipeline():
     except Exception as e:
         return f"Erro ao inicializar pipeline: {str(e)}"
 
-def process_user_query(query, show_details, use_llm_for_query):
+def process_user_query(query, use_llm_for_query):
     """Função para processar a consulta do usuário através da interface"""
     global rag_pipeline
     
@@ -116,7 +97,7 @@ def process_user_query(query, show_details, use_llm_for_query):
         if "Erro" in result:
             return result
     
-    return rag_pipeline.process_query(query, show_details, use_llm_for_query)
+    return rag_pipeline.process_query(query, use_llm_for_query)
 
 # Interface Gradio
 def create_interface():
@@ -136,14 +117,14 @@ def create_interface():
                 query_input = gr.Textbox(lines=3, label="Sua pergunta")
                 
                 with gr.Row():
-                    show_details = gr.Checkbox(label="Mostrar detalhes da pesquisa", value=False)
+
                     use_llm_for_query = gr.Checkbox(label="Usar LLM para preparar consulta", value=True, 
                                                 info="Se ativado, a LLM irá preparar a consulta Elasticsearch. Se desativado, usará a busca semântica direta.")
                 
                 search_button = gr.Button("Buscar", variant="primary")
             
             with gr.Column():
-                answer_output = gr.Textbox(lines=15, label="Resposta")
+                answer_output = gr.Markdown(label="Resposta", value="", show_label=True)
         
         with gr.Accordion("Sobre o sistema", open=False):
             gr.Markdown("""
@@ -160,7 +141,7 @@ def create_interface():
         
         search_button.click(
             process_user_query, 
-            inputs=[query_input, show_details, use_llm_for_query], 
+            inputs=[query_input, use_llm_for_query], 
             outputs=answer_output
         )
         

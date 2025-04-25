@@ -36,10 +36,13 @@ IMPORTANTE:
 Exemplo de extração de palavras-chave:
 
 Pergunta do usuário: "Quais podcasts de fitness são mais populares?"
-Palavras-chave extraídas: "(fitness) OR (popular) OR (podcast)"
+Palavras-chave extraídas: "(fitness)"
+
+Pergunta do usuário: "Me resuma 3 notícias de copas do mundo de futebol"
+Palavras-chave extraídas: "(copa do mundo) OR (futebol)"
 
 Pergunta do usuário: "Como posso melhorar meu sono com meditação?"
-Palavras-chave extraídas: "(sono) OR (meditação) OR (melhorar) OR (insonia)"
+Palavras-chave extraídas: "(sono) OR (meditação) OR (insonia)"
 
 Formate a consulta Elasticsearch como JSON seguindo este modelo:
 {{
@@ -83,8 +86,10 @@ Contexto:
 
 Pergunta do usuário: {query}
 
-Forneça uma resposta completa e informativa com base apenas nas informações contidas no contexto acima. 
+Forneça uma resposta resumida e informativa com base apenas nas informações contidas no contexto acima. 
 Se o contexto não contiver informações suficientes para responder à pergunta, indique isso claramente.
 Não invente informações ou use conhecimento externo ao contexto fornecido.
+Sempre forneça a resposta baseado nos documentos mais relevantes. Priorize-os, sempre. No entanto, não mencione o número do documento.
 Sempre forneça a resposta em português, mesmo que o contexto esteja em outro idioma.
+Seja breve, preciso e não vá muito além do solicitado.
 """
