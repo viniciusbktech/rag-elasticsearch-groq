@@ -11,6 +11,10 @@ O sistema funciona da seguinte forma:
 4. Os documentos mais relevantes são recuperados
 5. A LLM gera uma resposta contextualizada com base nos documentos encontrados
 
+Abaixo, fluxograma da arquitetura do sistema:
+
+![Fluxograma da arquitetura do sistema](imagens/arquitetura_rag_elastic_groq.jpg)
+
 ## Estrutura do Projeto
 
 ```
