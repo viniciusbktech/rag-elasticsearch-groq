@@ -69,7 +69,8 @@ Formate a consulta Elasticsearch como JSON seguindo este modelo:
             }}
           }}
         }}
-      ]
+      ],
+      "rank_window_size": {max_results}
     }}
   }},
   "size": {max_results}
