@@ -27,7 +27,7 @@ O sistema funciona da seguinte forma:
 ## Pré-requisitos
 
 - Python 3.8+
-- Acesso a um cluster Elasticsearch com índice que contém campo semantic_text vetorizado
+- Acesso a um cluster Elasticsearch com índice que contém campo semantic_text vetorizado (8.15+)
 - Chave de API do Groq
 
 ## Configuração
@@ -40,10 +40,8 @@ O sistema funciona da seguinte forma:
 3. Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
    ```
    # Elasticsearch
-   ES_HOST=seu_host_elasticsearch
-   ES_PORT=9200
-   ES_USERNAME=seu_usuario # se necessário
-   ES_PASSWORD=sua_senha # se necessário
+   ES_CLOUD_ID=seu_host_elasticsearch
+   ES_API_KEY=sua_chave_api_elasticsearch
    ES_INDEX=nome_do_indice
    ES_TEXT_FIELD=texto # campo de texto principal
    ES_SEMANTIC_FIELD=semantic_text # campo vetorizado
@@ -52,8 +50,8 @@ O sistema funciona da seguinte forma:
    
    # Groq API
    GROQ_API_KEY=sua_chave_api_groq
-   LLM_MODEL=llama3-70b-8192
-   LLM_TEMPERATURE=0.3
+   LLM_MODEL=llama-3.3-70b-versatile
+   LLM_TEMPERATURE=1
    ```
 
 ## Uso
@@ -63,22 +61,31 @@ Execute a aplicação com:
 python app.py
 ```
 
+Para este exemplo, foi utilizada uma base de dados de notícias da Folha de São Paulo. Esse dataset foi retirado do kaggle, e pode ser encontrado em: https://www.kaggle.com/datasets/luisfcaldeira/folha-news-of-the-brazilian-newspaper-2024.
+
 A interface web será iniciada localmente:
 
-![Chatbot em funcionamento](imagem1.png)
+![Chatbot em funcionamento](/rag_elastic_groq/imagens/imagem1.png)
 
-Você pode:
+Para testar:
 1. Clicar em "Inicializar Pipeline" para conectar ao Elasticsearch e preparar o sistema
 
-![Inicializando o pipeline](imagem2.png)
+![Inicializando o pipeline](/rag_elastic_groq/imagens/imagem2.png)
 
 2. Digitar sua pergunta e clicar em "Buscar"
 
-![Exemplo de busca](imagem3.png)
+![Exemplo de busca](/rag_elastic_groq/imagens/imagem3.png)
 
-3. Opcionalmente, ativar/desativar as opções:
-   - "Mostrar detalhes da pesquisa" para ver informações sobre os documentos recuperados
-   - "Usar LLM para preparar consulta" para alternar entre consulta personalizada pela LLM ou busca semântica direta
+3. Opcionalmente, ativar/desativar a opção:
+   - "Usar LLM para preparar consulta" para alternar entre consulta personalizada pela LLM ou busca semântica direta (desabilitar a opção fará com que todas as palavras contidas na busca sejam pesquisadas no índice, com a remoção de stopwords, apenas)
+
+4. A consulta também foi validada no Kibana para analisar o output da consulta
+
+![Consulta no Kibana](/rag_elastic_groq/imagens/imagem4.png)
+
+5. Nos logs, é possível ver a mesma consulta sendo criada pela LLM e enviada para o Elasticsearch
+
+![Logs](/rag_elastic_groq/imagens/imagem5.png)
 
 ## Fluxo de Funcionamento
 
