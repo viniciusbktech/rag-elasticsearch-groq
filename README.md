@@ -75,8 +75,6 @@ Execute a aplicação com:
 python app.py
 ```
 
-Para este exemplo, foi utilizada uma base de dados de notícias da Folha de São Paulo. Esse dataset foi retirado do kaggle, e pode ser encontrado em: https://www.kaggle.com/datasets/luisfcaldeira/folha-news-of-the-brazilian-newspaper-2024.
-
 A interface web será iniciada localmente:
 
 ![Chatbot em funcionamento](imagens/imagem1.png)
