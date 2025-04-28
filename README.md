@@ -142,6 +142,17 @@ A escolha do RRF neste projeto se deu pela sua capacidade de unir o melhor dos d
 3. Os documentos relevantes são recuperados
 4. A LLM gera uma resposta com base nos documentos recuperados
 
+## Importante: Uso de Consultas Sem Preparação por LLM
+
+Embora o fluxo principal deste projeto utilize a LLM (via API Groq) para preparar consultas mais refinadas ao Elasticsearch, também é possível realizar buscas **diretas** sem a etapa de reformulação da pergunta pela LLM.
+
+Essa abordagem, apesar de **não ser a mais recomendada em termos de qualidade de resposta**, pode ser interessante em cenários onde o **objetivo é reduzir custos** com chamadas à LLM, uma vez que o Python ficará responsável pela remoção de stopwords da mensagem, mas sem adaptar as palavras-chave baseado no contexto da pergunta.
+
+**Observação importante:**  
+Se optar por utilizar a consulta direta (sem preparação pela LLM), recomenda-se que o usuário seja **bastante objetivo e direto** na formulação da pergunta. Isso é fundamental para aumentar a eficácia da busca, já que consultas menos estruturadas podem prejudicar a correspondência de resultados (match) no Elasticsearch.
+
+Essa flexibilidade permite adaptar o projeto de acordo com as prioridades de cada aplicação, seja otimizando pela qualidade das respostas ou pela eficiência de custos.
+
 ## Boas Práticas Implementadas
 
 - **Busca híbrida**: Combina busca semântica (vetores) e busca textual (BM25) para melhores resultados
@@ -156,3 +167,14 @@ Para adaptar o sistema a diferentes índices ou modelos:
 - Ajuste as configurações no arquivo `.env`
 - Modifique os templates de prompt em `config.py` para se adequar ao seu caso de uso
 - Adapte o processamento de documentos em `llm_client.py` de acordo com a estrutura do seu índice
+
+## Contribuições
+
+Pull Requests (PRs) são muito bem-vindos!
+
+Se você tiver sugestões de melhorias, correções de bugs ou novas funcionalidades que possam enriquecer este projeto, fique à vontade para contribuir.
+
+Para colaborar:
+- Faça um fork do repositório
+- Crie uma branch para a sua feature ou correção
+- Envie seu Pull Request explicando as alterações propostas
